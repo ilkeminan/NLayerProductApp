@@ -6,17 +6,15 @@ using NLayer.Core.Services;
 
 namespace NLayer.API.Controllers
 {
-    public class ProductController : CustomBaseController
+    public class ProductsController : CustomBaseController
     {
         private readonly IMapper _mapper;
-        private readonly IService<Product> _service;
-        private readonly IProductService _productService;
+        private readonly IProductService _service;
 
-        public ProductController(IMapper mapper, IService<Product> service, IProductService productService)
+        public ProductsController(IMapper mapper, IProductService service)
         {
             _mapper = mapper;
             _service = service;
-            _productService = productService;
         }
 
         [HttpGet]
@@ -66,7 +64,7 @@ namespace NLayer.API.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> GetProductsWithCategory()
         {
-            var productWithCategoryDtos = await _productService.GetProductsWithCategory();
+            var productWithCategoryDtos = await _service.GetProductsWithCategory();
             return CreateActionResult(CustomResponseDTO<List<ProductWithCategoryDTO>>.Success(200, productWithCategoryDtos));
         }
 

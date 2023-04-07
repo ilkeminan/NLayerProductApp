@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using NLayer.API.Filters;
 using NLayer.Core.DTOs;
 using NLayer.Core.Models;
 using NLayer.Core.Services;
@@ -26,6 +27,7 @@ namespace NLayer.API.Controllers
             return CreateActionResult(CustomResponseDTO<List<ProductDTO>>.Success(200, productDtos));
         }
 
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -53,10 +55,6 @@ namespace NLayer.API.Controllers
         public async Task<IActionResult> Remove(int id)
         {
             var product = await _service.GetByIdAsync(id);
-            if(product == null)
-            {
-                return CreateActionResult(CustomResponseDTO<NoContentDTO>.Fail(404, "Bu id'ye sahip ürün bulunamadı!"));
-            }
             await _service.RemoveAsync(product);
             return CreateActionResult(CustomResponseDTO<NoContentDTO>.Success(204));
         }

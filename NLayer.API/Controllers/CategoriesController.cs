@@ -53,10 +53,6 @@ namespace NLayer.API.Controllers
         public async Task<IActionResult> Remove(int id)
         {
             var category = await _service.GetByIdAsync(id);
-            if (category == null)
-            {
-                return CreateActionResult(CustomResponseDTO<NoContentDTO>.Fail(404, "Bu id'ye sahip kategori bulunamadı!"));
-            }
             await _service.RemoveAsync(category);
             return CreateActionResult(CustomResponseDTO<NoContentDTO>.Success(204));
         }

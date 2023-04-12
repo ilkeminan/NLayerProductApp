@@ -43,9 +43,9 @@ namespace NLayer.MVC.Services
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<CategoryWithProductsDTO> GetSingleCategoryByIdWithProducts()
+        public async Task<CategoryWithProductsDTO> GetSingleCategoryByIdWithProducts(int categoryId)
         {
-            var response = await _httpClient.GetFromJsonAsync<CustomResponseDTO<CategoryWithProductsDTO>>("categories/GetSingleCategoryByIdWithProducts");
+            var response = await _httpClient.GetFromJsonAsync<CustomResponseDTO<CategoryWithProductsDTO>>($"categories/GetSingleCategoryByIdWithProducts/{categoryId}");
             return response.Data;
         }
     }

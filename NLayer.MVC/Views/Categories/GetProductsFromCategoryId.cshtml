@@ -1,0 +1,38 @@
+﻿@model CategoryWithProductsDTO
+@{
+    ViewData["Title"] = "GetProductsFromCategoryId";
+}
+
+<h1>Products of the @Model.Name Category</h1>
+
+@if (!Model.Products.Any())
+{
+    <h3 class="alert-danger">There is no product with this category id.</h3>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+                <td>Price</td>
+                <td>Stock</td>
+                <td>Created Date</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Name</td>
+                    <td>@item.Price</td>
+                    <td>@item.Stock</td>
+                    <td>@item.CreatedDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
